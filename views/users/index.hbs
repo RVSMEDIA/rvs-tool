@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Users</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>All Users</h1>
+    <section class="mb-4 mt-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 text-left">
+              {{#each users}}
+                <h6 class="links" id="{{@index}}">Name: {{this.name}} ,  Email:{{this.email}} <a href="/users/{{this.id}}"+>Edit</a>  </h6>
+                <form action="/users-delete/{{this.id}}" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              {{/each}}
+
+            </div>
+          </div>
+        </div>
+        </section>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

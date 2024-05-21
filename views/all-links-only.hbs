@@ -1,0 +1,171 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>All Links Only</title>
+
+  <!--Boostrap 4.0.0 CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <!--Font Awesome Icons-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#home">{{title}} </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active ">
+              <a class="nav-link" href="/single">Single Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/all">Bulk post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/all-links-only">All Links </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">{{req.originalUrl}}</a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home">
+      <div class="container mt-6">
+        <div class="jumbotron mb-1">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <form method="post" action="/all-links-only">
+                <div class="form-group">
+                        <label for="url">url:</label>
+                        <input type="text" id="url" name="url" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-primary float-right">Send</button>
+                </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+    <section class="mb-4 mt-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 text-left">
+              {{#each arr}}
+                {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
+                <h6>{{this}}</h6>
+              {{/each}}
+
+
+            {{!-- {{filenames}} --}}
+            </div>
+          </div>
+        </div>
+        </section>
+      
+      <section class="footer-2">
+                <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              {{!-- <h6 class="pt-4 pb-4">Scrapper © 2023. All Rights Reversed</h6> --}}
+            </div>
+  
+          </div>
+          
+          
+        </div>
+        
+        
+        
+      </section>
+      
+      
+      
+      
+      </footer>
+
+
+  </main>
+
+  <!--jQuery 3.2.1 Script-->
+  {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+
+  <!--Popper 1.12.9 Script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+
+  <!--Bootstrap 4.0.0 JavaScript-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+
+ <script>
+    $(document).ready(function() {
+
+    
+    {{!-- const linksdata = [];  
+    var links = $('.links');
+
+    $.each(links, function(index, value){
+    var url = $(this).text();
+      linksdata.push(url);
+    }); --}}
+
+    var arrayCount = linksdata.length;
+
+            var counter = 0;
+
+            var intervalId = setInterval(function() {
+
+            if (counter > arrayCount) {
+            clearInterval(intervalId);
+            return;
+            }
+
+
+          var formData = {
+            url: linksdata[counter],
+            id: counter,
+          }; 
+
+          console.log(counter)
+
+            $.ajax({
+            url: '/url',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+            // Append the name value pairs to the data div
+            
+              $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
+
+            }
+            });
+
+
+          counter++;
+          }, 5000);
+
+    });
+  </script>
+
+
+</body>
+</html

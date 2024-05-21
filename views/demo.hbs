@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>My Page</h1>
+
+
+    <form id="myform" method="post">
+      <div class="form-group">
+        <label for="url">url:</label>
+        <input type="text" id="url" name="url" class="form-control">
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+
+  {{!-- <button id="get-data">Get Data</button> --}}
+  <div id="data-container"></div>
+  <div id="data"></div>
+
+  
+  <script>
+    $(document).ready(function() {
+
+
+        
+
+
+
+
+
+        
+     // $('#get-data').click(function(e) {
+  $('#myform').submit(function(event) {
+
+        event.preventDefault();
+        var data = $('#url').val();
+
+
+        $.ajax({
+        url: '/data',
+        type: 'POST',
+        data: data,
+        success: function(data) {
+        // Append the name value pairs to the data div
+        //for (var i = 0; i < data.length; i++) {
+          //      var pair = data[i];
+            //    $('#data').append('<div>' + pair.name + ': ' + counter + '</div>');
+        //}
+
+        console.log(data)
+        }
+        });
+
+
+
+        console.log(data)
+        var counter = 0;
+
+        var intervalId = setInterval(function() {
+        counter++;
+
+        if (counter > 10) {
+        clearInterval(intervalId);
+        return;
+        }
+
+        $.ajax({
+        url: '/url',
+        type: 'POST',
+        data: url,
+        success: function(data) {
+        // Append the name value pairs to the data div
+        //for (var i = 0; i < data.length; i++) {
+          //      var pair = data[i];
+            //    $('#data').append('<div>' + pair.name + ': ' + counter + '</div>');
+        //}
+
+        console.log(data)
+        }
+        });
+        }, 2000);
+
+
+        
+
+
+
+      });
+    });
+  </script>
+</body>
+</html>

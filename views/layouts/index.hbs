@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <!-- Additional head content -->
+    <!--Boostrap 4.0.0 CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <!--Font Awesome Icons-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
+.grid-wrapper{
+			--auto-grid-min-size: 16rem;
+			display: grid;
+			grid-gap: 2rem;
+			grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+   font-family: 'Montserrat', sans-serif;
+
+		}
+		.grid-wrapper li{
+			background-color: #343a40;
+			color: #ffffff;
+			font-size: 24px;
+			list-style-type: none;
+			padding: 5rem 1rem;
+			text-align: center;
+			text-transform: capitalize;
+      font-weight: 600;
+		}
+		.main-container{
+			margin: 0 auto;
+			max-width: 1170px;
+			padding:2rem 1rem;
+		}
+
+    
+
+  </style>
+</head>
+<body>
+  {{> header}} <!-- Include the header partial -->
+
+
+
+  <!--Popper 1.12.9 Script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+
+  <!--Bootstrap 4.0.0 JavaScript-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <main>
+    {{{body}}}
+  </main>
+
+  {{> footer}} <!-- Include the footer partial -->
+
+  
+</body>
+</html>

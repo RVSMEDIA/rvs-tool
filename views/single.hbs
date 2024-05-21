@@ -1,0 +1,120 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Web Scrapper</title>
+
+  <!--Boostrap 4.0.0 CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <!--Font Awesome Icons-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#home">{{title}} </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/single">Single Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/all">Bulk post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home">
+      <div class="container mt-6">
+        <div class="jumbotron mb-1">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <form method="post" action="/single">
+                <div class="form-group">
+                        <label for="url">url:</label>
+                        <input type="text" id="url" name="url" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-primary float-right">Send</button>
+                </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <section class="mb-4 mt-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 text-left">
+              <h4 class="mt-4 mb-3">{{postname}}</h4>
+              <h5 class="mt-4 mb-3">{{caption}}</h5>
+              {{article}}
+              {{!-- <h6>Made with <i class="fas fa-coffee"></i> and <i class="fas fa-heart"></i> by Scrapper.</h6> --}}
+            </div>
+          </div>
+          
+          
+        </div>
+        </section>
+    
+    
+    <footer>
+    
+      
+      <section class="footer-2">
+                <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              {{!-- <h6 class="pt-4 pb-4">Scrapper © 2023. All Rights Reversed</h6> --}}
+            </div>
+  
+          </div>
+          
+          
+        </div>
+        
+        
+        
+      </section>
+      
+      
+      
+      
+      </footer>
+
+
+  </main>
+
+  <!--jQuery 3.2.1 Script-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <!--Popper 1.12.9 Script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  <!--Bootstrap 4.0.0 JavaScript-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html

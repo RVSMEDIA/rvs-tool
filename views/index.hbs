@@ -1,0 +1,112 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RVS Media Tools</title>
+
+  <!--Boostrap 4.0.0 CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <!--Font Awesome Icons-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
+.grid-wrapper{
+			--auto-grid-min-size: 16rem;
+			display: grid;
+			grid-gap: 2rem;
+			grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+   font-family: 'Montserrat', sans-serif;
+
+		}
+		.grid-wrapper li{
+			background-color: #ef4444;
+			color: #ffffff;
+			font-size: 24px;
+			list-style-type: none;
+			padding: 5rem 1rem;
+			text-align: center;
+			text-transform: capitalize;
+      font-weight: 600;
+		}
+		.main-container{
+			margin: 0 auto;
+			max-width: 1170px;
+			padding:2rem 1rem;
+		}
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#home">Scrapper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/single">Single Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/all">Bulk post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    </nav>
+  </header>
+
+  <main>
+
+
+    <section id="home">
+      <div class="container mt-6">
+        <div class="jumbotron mb-1">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="main-container">
+                  <ul class="grid-wrapper">
+                    <li>item 1</li>
+                    <li>item 2</li>
+                    <li>item 3</li>
+                    <li>item 4</li>
+                    <li>item 5</li>
+                    <li>item 6</li>
+                    <li>item 7</li>
+                    <li>item 8</li>
+                    <li>item 9</li>
+                    <li>item 10</li>	
+                    <li>item 11</li>	
+                    <li>item 12</li>	
+                  </ul>
+                </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+
+</body>
+</html>
