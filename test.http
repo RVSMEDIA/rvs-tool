@@ -1,0 +1,3 @@
+
+curl -X GET 'https://api.leadrocks.io/v1/getcredits' \
+ -H 'Authorization: e44b0dab087be2c41d020e6c467916ad:f6c9af767f18a86faae42e4b034e6ea49337e69bf4a717fdbd453ae255ff44c5'

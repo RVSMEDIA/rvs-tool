@@ -58,6 +58,39 @@
           <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="main-container2">
+                    <section class="mb-4 mt-3">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-sm-12 col-md-12 text-left">
+                                {{#each arr}}
+                                  <h6 class="links" id="{{@index}}">{{this}}</h6>
+                                {{/each}}
+
+
+                              {{!-- {{filenames}} --}}
+                              </div>
+                                <p id="fileOutput" class=" text-lg text-center font-mono mt-6 hidden">
+                                  
+                                <button
+                                    id="downloadbtn"
+                                    type="submit"
+                                    class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Download zip
+                                </button>
+                                  {{!-- <strong>Output: </strong> --}}
+                                  {{!-- <span id="filename"></span> --}}
+                                
+                                </p>
+
+                                <input type="hidden" id="ziplink">
+                                <p class="text-white text-lg text-center font-mono mt-2 process_bar" style="display:none;" >
+                              <strong> <span class="processing"> Processing... </span></strong><span id="output-path">
+                              <div class="progress-bar process_bar" style="display:none;"></div>
+                          </span></p>
+                            </div>
+                          </div>
+                      </section>
                    <form method="post" action="/generate-salary-slips" enctype="multipart/form-data" id="form">
                         <div
                         class="max-w-xl m-auto h-screen flex flex-col align-center justify-center"
@@ -113,7 +146,7 @@
                             >
                                 Generate
                             </button>
-
+                            
                             <Button 
                             href="/home"
                             style="display:none;"
@@ -123,15 +156,20 @@
 
                             </div>
 
-                        <p id="fileOutput" class=" text-lg text-center font-mono mt-6 hidden"><strong>Output: </strong><span id="filename"></span></p>
+                        {{!-- <p id="fileOutput" class=" text-lg text-center font-mono mt-6 hidden"><strong>Output: </strong><span id="filename"></span></p>
                         <p class="text-white text-lg text-center font-mono mt-2 process_bar" style="display:none;" >
                             <strong> <span class="processing"> Processing... </span></strong><span id="output-path">
                             <div class="progress-bar process_bar" style="display:none;"></div>
-                        </span></p>
+                        </span></p> --}}
 
                         </div>
 
                     </form>
+
+
+                
+
+
                 </div>
             </div>
           </div>
@@ -141,6 +179,12 @@
   </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <script>
+    
+  </script>
+
   <script>
 
 $(document).ready(function () {
@@ -224,7 +268,7 @@ $(document).ready(function () {
         
       
         dropArea.hide();
-        loading.show();
+        {{!-- loading.show(); --}}
 
       namelist.push(value._0)
       console.log(index, value._0);
@@ -251,8 +295,6 @@ $(document).ready(function () {
 
             if (counter > arrayCount) {
              
-
-              
               clearInterval(intervalId);
               console.log('counter = ' , counter)
               return;
@@ -289,9 +331,30 @@ $(document).ready(function () {
                 dropArea.show();
                 loading.hide();
                 $('head style#basic').remove();
+
+                // create zip of folder
+                var reqData = {
+                  sourceFolderPath: data.output,
+                  zipFilePath: data.zipFilePath,
+                }
+
+                $.ajax({
+                    url: '/make-zip',
+                    type: 'POST',
+                    data: reqData,
+                    success: function(data) {
+                    console.log('make-zip', data);
+
+                    $('#ziplink').val(data.href);
+
+                    }
+                });
+
+                // create zip of folder
               }
             
             console.log('data', data.id, data.pdfFileName, data)
+            {{!-- download(data.pdfFileName); --}}
             //  $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
               $('#'+data.id).html( data.pdfFileName +' (created)' ).css({'color':'green'} );
 
@@ -500,5 +563,39 @@ $(document).ready(function () {
 
     });
 
- 
+
+
+
+    function download(filePath) {
+      const encodedFilePath = encodeURIComponent(filePath);
+      const downloadUrl = `/download?filePath=${encodedFilePath}`;
+
+      fetch(downloadUrl)
+        .then(response => {
+          if (response.ok) {
+            return response.blob();
+          } else {
+            return response.text().then(text => {
+              throw new Error(text);
+            });
+          }
+        })
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = filePath.split('/').pop();
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+      document.getElementById('downloadbtn').addEventListener('click', () => {
+        const filePath = $('#ziplink').val();;
+        download(filePath);
+      });
   </script>

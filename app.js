@@ -14,7 +14,8 @@ const multer = require('multer');
 const csv = require('csv-parser');
 const upload = multer({ dest: 'uploads/' }).single('csv');
 var newpdf = require("pdf-creator-node");
-const puppeteer = require('puppeteer');
+const archiver = require('archiver');
+const fsExtra = require('fs-extra');
 
 const {fetch_data} = require('./controllers/messages.controller');
 
@@ -47,7 +48,7 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-
+const zipFilePath = path.join(__dirname, 'temp.zip');
 function createSlug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
@@ -64,6 +65,25 @@ function createSlug(str) {
            .replace(/-+/g, '-'); // collapse dashes
 
   return str;
+}
+
+function downloadFile(url) {
+  // Create a hidden anchor element
+  const anchor = document.createElement('a');
+  anchor.style.display = 'none';
+  document.body.appendChild(anchor);
+
+  // Set the href attribute to the file URL
+  anchor.href = url;
+
+  // Set the download attribute to force download
+  anchor.setAttribute('download', '');
+
+  // Trigger a click event on the anchor
+  anchor.click();
+
+  // Clean up: remove the anchor element
+  document.body.removeChild(anchor);
 }
 
 
@@ -127,6 +147,7 @@ app.post('/generate-salary-slips', upload, (req, res) => {
   }
 
   const results = [];
+  const arr = [];
   fs.createReadStream(req.file.path)
     .pipe(csv({ headers: true }))
     // .pipe(csv())
@@ -137,13 +158,14 @@ app.post('/generate-salary-slips', upload, (req, res) => {
         if(index > 0){
           console.log(row._1);
         }
+        arr.push(row._1);
       });
 
       const resultsJSON = JSON.stringify(results);
 
-      console.log(resultsJSON);
+      console.log('resultsJSON', resultsJSON);
 
-      res.render('generate-salary-slips', { results: resultsJSON});
+      res.render('generate-salary-slips', { results: resultsJSON, arr: arr});
 
     });
 });
@@ -174,7 +196,6 @@ app.post('/create-html', function(req, res) {
   
   const html = ejs.render(template, data);
   
-  // res.send(html)
   
   var EmployeName = dd._1
   var slipmonth = dd._0
@@ -186,73 +207,13 @@ app.post('/create-html', function(req, res) {
   // const filePath = 'render.html';
   const filePath = path.join(__dirname, 'render.html');
 
-  // fs.writeFile(filePath, html, (err) => {
-  //   if (err) {
-  //     console.error(err);
-  //   } else {
-  //     console.log(`File "${filePath}" written successfully`);
-  //   }
-  // });
-
-  // const options = {
-  //     format: 'Letter',
-  //     border: {
-  //       top: '1px',
-  //       right: '1px',
-  //       bottom: '1px',
-  //       left: '1px'
-  //     },
-  //     footer: {
-  //       height: '15mm',
-        
-  //     }
-  //   };
-
-  // var options = {
-  //       format: "A4",
-  //       orientation: "portrait",
-  //       border: "8mm",
-  //       header: {
-  //           height: "20mm",
-  //       },
-  //       // footer: {
-  //       //     height: "20mm",
-  //       //     contents: {
-  //       //         default:'<p style="color: black; font-family:"Calibri Light", sans-serif; font-style: italic; font-weight: normal; text-decoration: underline; font-size: 10pt;">This is a system generated pay slip and does not require signature</p>'
-  //       //     }
-  //       // }
-  //   };
-
-  // var readhtml = fs.readFileSync('render.html', "utf8");
-
-  // var document = {
-  //   html: readhtml,
-  //   data: {},
-  //   path: pdfFileName,
-  //   type: "",
-  // };
-
-
-  // pdf.create(html, options).toFile(pdfFileName, (err, res) => {
-  //   if (err) return console.log(err);
-  //   console.log(res); // { filename: '/app/businesscard.pdf' }
-  // });
-
-  // newpdf
-  // .create(document, options)
-  // .then((res) => {
-  //   console.log('res', res);
-  // })
-  // .catch((error) => {
-  //   console.error(error);
-  // });
-
   fs.writeFile(filePath, html, (err) => {
     if (err) {
       console.error(err);
     } else {
       console.log(`File "${filePath}" written successfully`);
   
+      // downloadFile(filePath);
       // Read the file content and proceed with the code
       var readhtml = fs.readFileSync(filePath, 'utf8');
   
@@ -284,7 +245,8 @@ app.post('/create-html', function(req, res) {
       res.send({
         'pdfFileName': pdfFileName,
         'id': id,
-        'output' : output
+        'output' : output,
+        'zipFilePath': zipFilePath
       });
     }
   });
@@ -299,7 +261,103 @@ app.post('/create-html', function(req, res) {
 });
 
 
+function zipFolder(sourceFolder, outPath) {
+  return new Promise((resolve, reject) => {
+      const output = fs.createWriteStream(outPath);
+      const archive = archiver('zip', {
+          zlib: { level: 9 } // Set the compression level
+      });
 
+      output.on('close', async () => {
+          console.log(`Archive created successfully. Total bytes: ${archive.pointer()}`);
+          try {
+              await fsExtra.remove(sourceFolder); // Remove the source folder
+              console.log('Source folder deleted successfully.');
+              resolve();
+          } catch (err) {
+              reject(`Error deleting source folder: ${err}`);
+          }
+      });
+
+      archive.on('error', (err) => {
+          reject(err);
+      });
+
+      archive.pipe(output);
+
+      archive.directory(sourceFolder, false);
+
+      archive.finalize();
+  });
+}
+
+// POST endpoint to zip a folder
+// app.post('/make-zip', (req, res) => {
+//   const sourceFolderPath = req.body.sourceFolderPath;
+//   const zipFilePath = req.body.zipFilePath;
+
+//   if (!sourceFolderPath || !zipFilePath) {
+//       return res.status(400).json({ error: 'sourceFolderPath and zipFilePath are required' });
+//   }
+
+//   zipFolder(sourceFolderPath, zipFilePath)
+//       .then(() => {
+//           console.log('Folder zipped and source folder deleted successfully.');
+//           res.status(200).json({ message: 'Folder zipped and source folder deleted successfully.' });
+//       })
+//       .catch((err) => {
+//           console.error('Error zipping folder:', err);
+//           res.status(500).json({ error: 'Error zipping folder' });
+//       });
+// });
+
+
+// POST endpoint to zip a folder
+app.post('/make-zip', (req, res) => {
+  const sourceFolderPath = req.body.sourceFolderPath;
+  const zipFilePath = req.body.zipFilePath;
+
+  if (!sourceFolderPath || !zipFilePath) {
+      return res.status(400).json({ error: 'sourceFolderPath and zipFilePath are required' });
+  }
+
+  setTimeout(() => {
+      zipFolder(sourceFolderPath, zipFilePath)
+          .then(() => {
+              console.log('Folder zipped and source folder deleted successfully.');
+              res.status(200).json({ message: 'Folder zipped and source folder deleted successfully.', href: zipFilePath });
+          })
+          .catch((err) => {
+              console.error('Error zipping folder:', err);
+              res.status(500).json({ error: 'Error zipping folder' });
+          });
+  }, 3000); // 3 seconds delay
+});
+
+app.get('/download', (req, res) => {
+  const { filePath } = req.query;
+  const fullPath = path.resolve(filePath);
+
+  // Check if the file exists
+  fs.access(fullPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(404).send('File not found');
+    } else {
+      // Set headers to force download
+      res.setHeader('Content-Type', 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename="${path.basename(fullPath)}"`);
+
+      // Create a read stream from the file and pipe it to the response
+      const fileStream = fs.createReadStream(fullPath);
+      fileStream.on('error', (err) => {
+        console.error(err);
+        res.status(500).send('Error reading file');
+      });
+      fileStream.pipe(res);
+    }
+  });
+});
 
 
 
@@ -831,5 +889,5 @@ ${urls.map((item) => `> [${item}](${item})`).join('\n')}
 
 
 app.listen(PORT, () => {
-    console.log(`Listing on ${PORT} .....`);
+    console.log(`Listing on  app ${PORT} .....`);
 } )
