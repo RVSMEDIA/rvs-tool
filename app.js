@@ -48,6 +48,8 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
+
+const sourceFolderPath = path.join(__dirname, 'temp');
 const zipFilePath = path.join(__dirname, 'temp.zip');
 function createSlug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -67,26 +69,6 @@ function createSlug(str) {
   return str;
 }
 
-function downloadFile(url) {
-  // Create a hidden anchor element
-  const anchor = document.createElement('a');
-  anchor.style.display = 'none';
-  document.body.appendChild(anchor);
-
-  // Set the href attribute to the file URL
-  anchor.href = url;
-
-  // Set the download attribute to force download
-  anchor.setAttribute('download', '');
-
-  // Trigger a click event on the anchor
-  anchor.click();
-
-  // Clean up: remove the anchor element
-  document.body.removeChild(anchor);
-}
-
-
 const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0'); // add leading zero if necessary
@@ -94,7 +76,8 @@ const date = new Date();
 
   const folderName = `${year}-${month}-${day}`;
   // const downloadDir = app.getPath('downloads');
-  const downloadDir = path.join(os.homedir(), 'Downloads');
+  // const downloadDir = path.join(os.homedir(), 'Downloads');
+  const downloadDir = path.join(__dirname, 'temp');
 
   console.log(`Folder "${folderName}" created successfully in "${downloadDir}"`);
   
