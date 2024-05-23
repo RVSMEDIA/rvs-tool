@@ -1,4 +1,331 @@
+<style>
+   .progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #28a745;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar.completed {
+  background-color: #28a745;
+}
+
+.processing {
+  color: #28a745;
+}
+
+.progress-bar::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  transition: width 0.3s ease-in-out;
+}
+
+#drop-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #drop-area.valid {
+        border-color: #4CAF50;
+    }
+
+    #drop-area.invalid {
+        border-color: red;
+    }
+
+    #status {
+        margin-top: 20px;
+    }
+
+    .bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    }
+  </style>  
+
 <main>
-  <h2>XLS to CSV Converter</h2>
-  <p>Here you can convert XLS files to CSV format.</p>
-</main>
+    <section id="biometric-calculations">
+      <div class="container">
+        <div style="background-color: #e9ecef;">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="main-container2">
+                   <form method="post" action="/"  enctype="multipart/form-data" id="form">
+                        <div
+                        class="max-w-xl m-auto h-screen flex flex-col align-center justify-center"
+                        >
+                        <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
+                            <div id="drop-area">
+
+                            <label
+                                class="w-64 flex flex-col items-center px-4 py-7 bg-white text-gray-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:text-teal-800"
+                            >
+                                <img src="assets/csv-file-icon.svg" width="32" />
+                                <span class="mt-2 leading-normal">Select an xls</span> 
+                                <input type="file" id="csv" name="csv" accept=".xls" class="hidden">
+
+                            </label>
+                                <div id="status" /></div>
+                            </div>
+
+                            <div id="loading" style="display:none;">
+                                <div class="scene">
+                                <div class="shadow"></div>
+                                <div class="jumper">
+                                    <div class="spinner">
+                                    <div class="scaler">
+                                        <div class="loader">
+                                        <div class="cuboid">
+                                            <div class="cuboid__side"></div>
+                                            <div class="cuboid__side"></div>
+                                            <div class="cuboid__side"></div>
+                                            <div class="cuboid__side"></div>
+                                            <div class="cuboid__side"></div>
+                                            <div class="cuboid__side"></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                                </div>
+                            </div>
+
+
+                            {{error}}
+                        </div>
+
+                        
+                        <!-- Button -->
+                            <div class="mt-6">
+                            <button
+                                id="gen_btn"
+                                type="submit"
+                                class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                Generate
+                            </button>
+
+                            <Button 
+                            href="/home"
+                            style="display:none;"
+                            id="refresh"
+                            class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >Refresh</Button>
+
+                            </div>
+
+                        <p id="fileOutput" class=" text-lg text-center font-mono mt-6 hidden"><strong>Output: </strong><span id="filename"></span></p>
+                        <p class="text-white text-lg text-center font-mono mt-2 process_bar" style="display:none;" >
+                            <strong> <span class="processing"> Processing... </span></strong><span id="output-path">
+                            <div class="progress-bar process_bar" style="display:none;"></div>
+                        </span></p>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <script>
+
+$(document).ready(function () {
+
+        var dropArea = $('#drop-area');
+        var fileInput = $('#csv');
+        var status = $('#status');
+
+
+        const genrateBTN = $('#gen_btn');
+
+        
+
+        dropArea.on('dragover', function (e) {
+            e.preventDefault();
+            dropArea.addClass('valid');
+        });
+
+        dropArea.on('dragleave', function () {
+            dropArea.removeClass('valid');
+        });
+
+        dropArea.on('drop', function (e) {
+            e.preventDefault();
+            fileInput.trigger('change');
+            console.log('drop', e.originalEvent.dataTransfer.files);
+            handleFiles(e.originalEvent.dataTransfer.files);
+        });
+
+        fileInput.on('change', function () {
+          console.log('change', fileInput[0].files);
+            handleFiles(fileInput[0].files);
+        });
+
+        {{!-- function handleFiles(files) {
+            dropArea.removeClass('valid invalid');
+
+            if (files.length > 0) {
+
+              console.log('files', files)
+                var file = files[0];
+                var fileType = file.type;
+                var validTypes = ['text/csv', 'application/vnd.ms-excel'];
+
+                if (validTypes.includes(fileType)) {
+                    dropArea.addClass('valid');
+                    status.html('<span style="color: green;">File is valid. ✔️</span>');
+                } else {
+                    dropArea.addClass('invalid');
+                    status.html('<span style="color: red;">Invalid file ❌ Please select a CSV file</span>');
+                }
+            } else {
+                status.html('');
+            }
+        } --}}
+
+
+
+        function handleFiles(files) {
+    dropArea.removeClass('valid invalid');
+
+    if (files.length > 0) {
+                var file = files[0];
+                var fileType = file.type;
+                var validTypes = ['text/csv', 'application/vnd.ms-excel'];
+
+                if (validTypes.includes(fileType)) {
+                    dropArea.addClass('valid');
+                    status.html('<span style="color: green;">File is valid. ✔️</span>');
+
+                    // Append the files to the file input element
+                    const fileInput = $('#csv');
+                    fileInput[0].files = files;
+
+                    console.log(fileInput[0].files);
+                } else {
+                    dropArea.addClass('invalid');
+                    status.html('<span style="color: red;">Invalid file ❌ Please select a CSV file</span>');
+                }
+            } else {
+                status.html('');
+            }
+        }
+
+    });
+
+
+    $(document).ready(function() {
+
+    const namelist = [];
+    const data = JSON.parse($('#results-data').val());
+    const progressBar = $('.progress-bar');
+    const gen_btn = $('#gen_btn');
+    const refresh = $('#refresh');
+    const process_bar_html = $('.process_bar');
+    const loading = $('#loading');
+    var dropArea = $('#drop-area');
+    $.each(data, function(index, value){
+      if(index > 0){
+
+        gen_btn.html('<i class="fa fa-spinner fa-spin"></i>');
+
+        
+        {{!-- $('#form').hide(); --}}
+        dropArea.hide();
+        loading.show();
+
+      namelist.push(value._0)
+      console.log(index, value._0);
+
+      var h6 = $(`<h6 id="${index}" >${value._0}</h6>`)
+      $('.show').append(h6);
+      }
+      
+    });
+
+   console.log('namelist =', namelist)
+
+    const linksdata = [];  
+    var links = $('.data');
+    var arrayCount = namelist.length;
+
+            var counter = 1;
+            var progresscounter = 0;
+            let progress = 0;
+            console.log(arrayCount)
+
+
+          var intervalId = setInterval(function() {
+
+            if (counter > arrayCount) {
+             
+
+              
+              clearInterval(intervalId);
+              console.log('counter = ' , counter)
+              return;
+            }
+
+          var postData = {
+            data: data[counter],
+            headers: data[0],
+            id: counter,
+          }
+
+          console.log(counter)
+
+           {{!-- $.ajax({
+            url: '/create-html',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
+            // Append the name value pairs to the data div
+
+            gen_btn.css({'display': 'none'});
+            process_bar_html.show();
+            
+             progress = Math.ceil((progresscounter / arrayCount) * 100);
+             progressBar.css('width', progress + '%').text(progress + '%');
+             console.log('progress', counter/arrayCount, 'counter', counter, 'arrayCount', arrayCount)
+
+              if (progress === 100) {
+                progressBar.addClass('completed');
+                refresh.show();
+                $('.processing').html(' Completed ✔️');
+                $('#fileOutput').show();
+                $('#filename').html(data.output);
+                dropArea.show();
+                loading.hide();
+                $('head style#basic').remove();
+              }
+            
+            console.log('data', data.id, data.pdfFileName, data)
+            //  $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
+              $('#'+data.id).html( data.pdfFileName +' (created)' ).css({'color':'green'} );
+
+            }
+            }); --}}
+
+
+          counter++;
+          progresscounter++;
+          }, 3000);
+
+
+
+    });
+
+ 
+  </script>

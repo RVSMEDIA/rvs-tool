@@ -25,7 +25,7 @@ const messagesRouter = require('./routes/messages.routes');
 const { response } = require('express');
 
 const api_key = 'D7H8FOFSDV5607BVG0X98IL3XRTCVZNTXFC6U3SGC0P70D6H2IRDFI2WEF9PZECCMFJ9SC946S4G3FOP';
-
+process.env.OPENSSL_CONF = '/dev/null';
 const app = express();
 
 // Set up Handlebars
@@ -201,7 +201,7 @@ app.post('/create-html', function(req, res) {
       var readhtml = fs.readFileSync(filePath, 'utf8');
   
       var options = {
-        format: "A4",
+        format: "A3",
         orientation: "portrait",
         border: "8mm",
         header: {
