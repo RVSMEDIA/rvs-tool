@@ -201,7 +201,7 @@ app.post('/create-html', function(req, res) {
       var readhtml = fs.readFileSync(filePath, 'utf8');
   
       var options = {
-        format: "A3",
+        format: "A4",
         orientation: "portrait",
         border: "8mm",
         header: {
