@@ -56,10 +56,19 @@
           <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="main-container2">
-                   <form method="post" action="/"  enctype="multipart/form-data" id="form">
+
+
+                   <form method="post" action="/xls-to-csv"  enctype="multipart/form-data" id="form">
                         <div
                         class="max-w-xl m-auto h-screen flex flex-col align-center justify-center"
                         >
+
+                        {{#if success}}
+                              <p style="color: green;">{{success}}</p>
+                              <a href="/download/{{downloadPath}}">Download CSV File</a>
+
+                        {{else}}
+
                         <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
                             <div id="drop-area">
 
@@ -122,14 +131,23 @@
                             </div>
 
                         <p id="fileOutput" class=" text-lg text-center font-mono mt-6 hidden"><strong>Output: </strong><span id="filename"></span></p>
+
+                        <!-- Success message and download link -->
+                          
+
                         <p class="text-white text-lg text-center font-mono mt-2 process_bar" style="display:none;" >
                             <strong> <span class="processing"> Processing... </span></strong><span id="output-path">
                             <div class="progress-bar process_bar" style="display:none;"></div>
                         </span></p>
 
                         </div>
+                      
+                      {{/if}}
 
                     </form>
+
+
+
                 </div>
             </div>
           </div>
@@ -173,37 +191,18 @@ $(document).ready(function () {
             handleFiles(fileInput[0].files);
         });
 
-        {{!-- function handleFiles(files) {
+        function handleFiles(files) {
+          
             dropArea.removeClass('valid invalid');
 
             if (files.length > 0) {
-
-              console.log('files', files)
                 var file = files[0];
                 var fileType = file.type;
-                var validTypes = ['text/csv', 'application/vnd.ms-excel'];
 
-                if (validTypes.includes(fileType)) {
-                    dropArea.addClass('valid');
-                    status.html('<span style="color: green;">File is valid. ✔️</span>');
-                } else {
-                    dropArea.addClass('invalid');
-                    status.html('<span style="color: red;">Invalid file ❌ Please select a CSV file</span>');
-                }
-            } else {
-                status.html('');
-            }
-        } --}}
-
-
-
-        function handleFiles(files) {
-    dropArea.removeClass('valid invalid');
-
-    if (files.length > 0) {
-                var file = files[0];
-                var fileType = file.type;
-                var validTypes = ['text/csv', 'application/vnd.ms-excel'];
+                var validTypes = [
+                    'application/vnd.ms-excel',         // .xls
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // .xlsx
+                ];
 
                 if (validTypes.includes(fileType)) {
                     dropArea.addClass('valid');
@@ -216,7 +215,7 @@ $(document).ready(function () {
                     console.log(fileInput[0].files);
                 } else {
                     dropArea.addClass('invalid');
-                    status.html('<span style="color: red;">Invalid file ❌ Please select a CSV file</span>');
+                    status.html('<span style="color: red;">Invalid file ❌ Please select a XLS file</span>');
                 }
             } else {
                 status.html('');
