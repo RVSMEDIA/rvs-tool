@@ -96,15 +96,24 @@ app.post('/xls-to-csv', upload, async (req, res) => {
   var rows = [];
   var writeStr = '';
 
-  // Looping through all sheets
-  for (var i = 0; i < obj.length; i++) {
-    var sheet = obj[i];
+
+  // for only first sheet
+    var sheet = obj[0];
     // Loop through all rows in the sheet
     for (var j = 0; j < sheet['data'].length; j++) {
       // Add the row to the rows array
       rows.push(sheet['data'][j]);
     }
-  }
+
+    // Looping through all sheets
+  // for (var i = 0; i < obj.length; i++) {
+  //   var sheet = obj[i];
+  //   // Loop through all rows in the sheet
+  //   for (var j = 0; j < sheet['data'].length; j++) {
+  //     // Add the row to the rows array
+  //     rows.push(sheet['data'][j]);
+  //   }
+  // }
 
   // Creates the CSV string to write it to a file
   for (var i = 0; i < rows.length; i++) {
