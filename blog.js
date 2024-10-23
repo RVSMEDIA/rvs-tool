@@ -1,35 +1,32 @@
-var xlsx = require('node-xlsx');
-var fs = require('fs');
-var obj = xlsx.parse(__dirname + '/Salary-Sheet-2024-Dummy-for-ERP.xlsx'); // parses a file
-var rows = [];
-var writeStr = "";
+const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
+const path = require('path');
 
+async function uploadFileAndDownloadCSV() {
+    try {
+        // Create a form and append the file
+        const form = new FormData();
+        const filePath = path.join(__dirname, 'outputdemo.csv');  // Adjust the file path
 
-console.log(`obj => ${obj}`);
+        form.append('file', fs.createReadStream(filePath));
 
-//looping through all sheets
-for(var i = 0; i < obj.length; i++)
-{
-    var sheet = obj[i];
-    //loop through all rows in the sheet
-    for(var j = 0; j < sheet['data'].length; j++)
-    {
-            //add the row to the rows array
-            rows.push(sheet['data'][j]);
+        // Make the POST request with the file
+        const response = await axios.post('http://139.59.56.29:8000/process_csv/', form, {
+            headers: {
+                ...form.getHeaders() // Set proper headers for multipart/form-data
+            },
+            responseType: 'arraybuffer' // Ensures binary data is returned for the CSV
+        });
+
+        // Save the response data to a CSV file
+        const outputFilePath = 'outputdem11212o.csv';
+        fs.writeFileSync(outputFilePath, response.data);
+
+        console.log(`CSV response saved as ${outputFilePath}`);
+    } catch (error) {
+        console.error('Error during file upload or CSV download:', error.message);
     }
 }
 
-//creates the csv string to write it to a file
-for(var i = 0; i < rows.length; i++)
-{
-    writeStr += rows[i].join(",") + "\n";
-}
-
-//writes to a file, but you will presumably send the csv as a      
-//response instead
-fs.writeFile(__dirname + "/test.csv", writeStr, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-    console.log("test.csv was saved in the current directory!");
-});
+uploadFileAndDownloadCSV();

@@ -54,27 +54,6 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-
-const date = new Date();
-const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, '0'); // add leading zero if necessary
-const day = String(date.getDate()).padStart(2, '0'); // add leading zero if necessary
-
-const folderName = `${year}-${month}-${day}`;
-// const downloadDir = app.getPath('downloads');
-// const downloadDir = path.join(os.homedir(), 'Downloads');
-const downloadDir = path.join(__dirname, 'temp');
-
-console.log(`Folder "${folderName}" created successfully in "${downloadDir}"`);
-
-fs.mkdir(`${downloadDir}/${folderName}`, (err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`Folder "${folderName}" created successfully in "${downloadDir}"`);
-  }
-});
-
 app.get('/xls-to-csv', (req, res) => {
   res.render('xls-to-csv');
 });
@@ -215,131 +194,12 @@ process.on('uncaughtException', (err, origin) => {
   });
 });
 
-app.post('/generate-salary-slips', upload, (req, res) => {
-
-    
-  const file = req.file;
-  console.log('results ', file)
-  // return false;
-  if (!file) {
-    return res.render('index', { error: 'No CSV file was uploaded!' });
-  }
-  if (!['text/csv', 'application/csv'].includes(file.mimetype)) {
-    return res.render('index', { error: 'Only CSV files are allowed!' });
-  }
-
-  const results = [];
-  const arr = [];
-  fs.createReadStream(req.file.path)
-    .pipe(csv({ headers: true }))
-    // .pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      fs.unlinkSync(req.file.path); // delete the file after reading it
-      results.forEach((row, index) => {
-        if(index > 0){
-          console.log(row._1);
-        }
-        arr.push(row._1);
-      });
-
-      const resultsJSON = JSON.stringify(results);
-
-      console.log('resultsJSON', resultsJSON);
-
-      res.render('generate-salary-slips', { results: resultsJSON, arr: arr});
-
-    });
-});
-
-
-
-function zipFolder(sourceFolder, outPath) {
-  return new Promise((resolve, reject) => {
-      const output = fs.createWriteStream(outPath);
-      const archive = archiver('zip', {
-          zlib: { level: 9 } // Set the compression level
-      });
-
-      output.on('close', async () => {
-          console.log(`Archive created successfully. Total bytes: ${archive.pointer()}`);
-          try {
-              await fsExtra.remove(sourceFolder); // Remove the source folder
-              console.log('Source folder deleted successfully.');
-              resolve();
-          } catch (err) {
-              reject(`Error deleting source folder: ${err}`);
-          }
-      });
-
-      archive.on('error', (err) => {
-          reject(err);
-      });
-
-      archive.pipe(output);
-
-      archive.directory(sourceFolder, false);
-
-      archive.finalize();
-  });
-}
-
-// POST endpoint to zip a folder
-app.post('/make-zip', (req, res) => {
-  const sourceFolderPath = req.body.sourceFolderPath;
-  const zipFilePath = req.body.zipFilePath;
-
-  if (!sourceFolderPath || !zipFilePath) {
-      return res.status(400).json({ error: 'sourceFolderPath and zipFilePath are required' });
-  }
-
-  setTimeout(() => {
-      zipFolder(sourceFolderPath, zipFilePath)
-          .then(() => {
-              console.log('Folder zipped and source folder deleted successfully.');
-              res.status(200).json({ message: 'Folder zipped and source folder deleted successfully.', href: zipFilePath });
-          })
-          .catch((err) => {
-              console.error('Error zipping folder:', err);
-              res.status(500).json({ error: 'Error zipping folder' });
-          });
-  }, 3000); // 3 seconds delay
-});
-
-app.get('/download', (req, res) => {
-  const { filePath } = req.query;
-  const fullPath = path.resolve(filePath);
-
-  // Check if the file exists
-  fs.access(fullPath, fs.constants.F_OK, (err) => {
-    if (err) {
-      console.error(err);
-      res.status(404).send('File not found');
-    } else {
-      // Set headers to force download
-      res.setHeader('Content-Type', 'application/octet-stream');
-      res.setHeader('Content-Disposition', `attachment; filename="${path.basename(fullPath)}"`);
-
-      // Create a read stream from the file and pipe it to the response
-      const fileStream = fs.createReadStream(fullPath);
-      fileStream.on('error', (err) => {
-        console.error(err);
-        res.status(500).send('Error reading file');
-      });
-      fileStream.pipe(res);
-    }
-  });
-});
-
-
-
-
 // app.use(bodyParser.json());
 
 // app.set('view engine', 'hbs');
 // app.set('views', path.join(__dirname, 'views'));
 
-const PORT = 3000;
+const PORT = 5002;
 
 // middleware
 app.use((req, res, next) => {

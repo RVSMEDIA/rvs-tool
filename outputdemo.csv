@@ -1,0 +1,28 @@
+Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19
+,Daily Attendance Report (Detailed Report),,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,May 10 2024  To  May 10 2024,,,,,,,,,,,,,,,,,,
+,Company:,,,Default,,,,,,,,,,,,,,Printed On : May 13 2024 18:01,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,Attendance Date :,,,,10-May-2024,,,,,,,,,,,,,,
+,Department,,Default,,,,,,,,,,,,,,,,
+,SNo,E. Code,Name,,Shift,S. InTime,,S. OutTime,,A. InTime,A. OutTime,Work Dur.,OT,Tot. Dur.,LateBy,EarlyGoingBy,Status,,Punch Records
+,1,1,1,,GS,10:00,,19:30,,,,00:00,00:00,00:00,00:00,00:00,Absent,,
+,2,7,Jasjeet Khipal,,GS,10:00,,19:30,,09:49,18:52,8:53,00:00,8:53,00:00,00:37,Present ,,"09:49:in(ATD),12:29:out(ATD),12:46:in(ATD),13:40:out(ATD),13:45:in(ATD),14:15:out(ATD),14:35:in(ATD),15:33:out(ATD),15:36:in(ATD),18:52:out(ATD),"
+,3,8,Subham Singh,,GS,10:00,,19:30,,,,00:00,00:00,00:00,00:00,00:00,Absent,,
+,4,9,Sayed Imtiyaz Hasan,,GS,10:00,,19:30,,09:58,19:02,9:03,00:00,9:03,00:00,00:27,Present ,,"09:58:in(ATD),11:11:out(ATD),11:26:in(ATD),13:01:out(ATD),13:02:in(ATD),14:06:out(ATD),14:20:in(ATD),14:37:out(ATD),15:39:in(ATD),15:52:out(ATD),17:26:in(ATD),17:44:out(ATD),18:26:in(ATD),19:02:out(ATD),"
+,5,10,Jaskirat Singh,,GS,10:00,,19:30,,09:49,18:52,8:53,00:00,8:53,00:00,00:37,Present ,,"09:49:in(ATD),10:11:out(ATD),10:14:in(ATD),10:32:out(ATD),10:45:in(ATD),13:14:out(ATD),13:16:in(ATD),14:03:out(ATD),14:37:in(ATD),15:26:out(ATD),15:29:in(ATD),16:16:out(ATD),16:19:in(ATD),17:57:out(ATD),17:59:in(ATD),18:16:out(ATD),18:52:in(ATD),"
+,6,11,Utkarsh Rathi,,GS,10:00,,19:30,,09:49,18:21,8:22,00:00,8:22,00:00,1:08,Present ,,"09:49:in(ATD),11:13:out(ATD),11:27:in(ATD),12:49:out(ATD),12:51:in(ATD),13:45:out(ATD),13:47:in(ATD),14:21:out(ATD),14:37:in(ATD),15:34:out(ATD),15:36:in(ATD),16:17:out(ATD),16:19:in(ATD),17:26:out(ATD),17:44:in(ATD),18:21:out(ATD),"
+,7,12,Vinay Kumar,,GS,10:00,,19:30,,10:11,19:27,9:16,00:00,9:16,00:00,00:00,Present ,,"10:11:in(ATD),10:39:out(ATD),10:47:in(ATD),13:25:out(ATD),13:30:in(ATD),14:01:out(ATD),14:07:in(ATD),16:40:out(ATD),16:42:in(ATD),17:28:out(ATD),17:44:in(ATD),18:26:out(ATD),18:39:in(ATD),18:40:out(ATD),19:27:in(ATD),"
+,8,13,Avish Salhotra,,GS,10:00,,19:30,,10:34,18:26,7:52,00:00,7:52,00:34,1:03,Present ,,"10:34:in(ATD),10:40:out(ATD),10:44:in(ATD),14:03:out(ATD),14:06:in(ATD),14:24:out(ATD),14:28:in(ATD),16:54:out(ATD),17:09:in(ATD),18:10:out(ATD),18:12:in(ATD),18:26:out(ATD),"
+,9,14,Ananda Balu Hyalij,,NS,00:00,,00:00,,,,00:00,00:00,00:00,00:00,00:00,Absent,,
+,10,15,Mandeep,,GS,10:00,,19:30,,09:49,19:00,9:01,00:00,9:01,00:00,00:29,Present ,,"09:49:in(ATD),09:53:out(ATD),09:57:in(ATD),11:05:out(ATD),11:07:in(ATD),12:42:out(ATD),12:46:in(ATD),14:03:out(ATD),14:37:in(ATD),17:20:out(ATD),17:23:in(ATD),18:16:out(ATD),19:00:in(ATD),"
+,11,16,Chhavi Garg,,GS,10:00,,19:30,,09:55,19:35,9:36,00:00,9:36,00:00,00:00,Present ,,"09:55:in(ATD),10:22:out(ATD),10:25:in(ATD),12:18:out(ATD),12:21:in(ATD),13:23:out(ATD),13:27:in(ATD),14:46:out(ATD),14:59:in(ATD),17:43:out(ATD),17:46:in(ATD),18:29:out(ATD),18:30:in(ATD),19:35:out(ATD),"
+,12,17,Jasreet Maggo,,NS,00:00,,00:00,,,,00:00,00:00,00:00,00:00,00:00,Absent,,
+,13,18,Vishal Sharma,,FLX,09:00,,21:00,,09:08,18:20,9:12,00:00,9:12,00:00,2:39,Present ,,"09:08:in(ATD),12:38:out(ATD),12:39:in(ATD),12:41:out(ATD),12:41:in(ATD),15:26:out(ATD),15:27:in(ATD),15:32:out(ATD),15:33:in(ATD),16:33:out(ATD),16:34:in(ATD),17:15:out(ATD),17:16:in(ATD),17:16:out(ATD),17:16:in(ATD),17:41:out(ATD),17:51:in(ATD),18:20:out(ATD),"
+,14,19,Harsh,,GS,10:00,,19:30,,09:09,19:52,9:53,00:00,9:53,00:00,00:00,Present ,,"09:09:in(ATD),09:09:out(ATD),10:26:in(ATD),10:47:out(ATD),10:47:in(ATD),10:50:out(ATD),10:51:in(ATD),11:13:out(ATD),11:13:in(ATD),11:13:out(ATD),11:31:in(ATD),11:39:out(ATD),11:39:in(ATD),12:28:out(ATD),12:40:in(ATD),12:40:out(ATD),15:02:in(ATD),15:02:out(ATD),15:23:in(ATD),15:32:out(ATD),15:32:in(ATD),16:17:out(ATD),16:18:in(ATD),16:18:out(ATD),16:21:in(ATD),16:22:out(ATD),16:22:in(ATD),16:51:out(ATD),16:56:in(ATD),18:08:out(ATD),18:15:in(ATD),18:15:out(ATD),18:15:in(ATD),18:20:out(ATD),18:21:in(ATD),19:52:out(ATD),"
+,15,21,Rajeev Nar,,NS,00:00,,00:00,,,,00:00,00:00,00:00,00:00,00:00,Absent,,
+,16,23,Rohit Mehta,,GS,10:00,,19:30,,10:43,19:45,9:02,00:00,9:02,00:43,00:00,Present ,,"10:43:in(ATD),11:11:out(ATD),11:26:in(ATD),12:22:out(ATD),12:36:in(ATD),13:31:out(ATD),13:32:in(ATD),14:00:out(ATD),14:02:in(ATD),14:20:out(ATD),14:37:in(ATD),15:22:out(ATD),15:23:in(ATD),15:40:out(ATD),15:52:in(ATD),16:20:out(ATD),16:29:in(ATD),17:59:out(ATD),18:10:in(ATD),18:26:out(ATD),19:16:in(ATD),19:18:out(ATD),19:45:in(ATD),"
+,17,24,Shabbir Ali,,GS,10:00,,19:30,,10:15,19:18,9:03,00:00,9:03,00:00,00:00,Present ,,"10:15:in(ATD),11:57:out(ATD),11:58:in(ATD),13:02:out(ATD),17:29:in(ATD),17:47:out(ATD),17:47:in(ATD),19:18:out(ATD),19:18:in(ATD),"
+,18,25,Palkin,,GS,10:00,,19:30,,09:30,19:00,9:01,00:00,9:01,00:00,00:29,Present ,,"09:30:in(ATD),09:40:out(ATD),09:40:in(ATD),11:19:out(ATD),11:20:in(ATD),11:45:out(ATD),11:47:in(ATD),12:58:out(ATD),13:00:in(ATD),13:49:out(ATD),13:52:in(ATD),13:59:out(ATD),14:32:in(ATD),14:32:out(ATD),14:34:in(ATD),16:11:out(ATD),16:16:in(ATD),17:56:out(ATD),18:17:in(ATD),18:27:out(ATD),19:00:in(ATD),"
