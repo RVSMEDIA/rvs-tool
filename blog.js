@@ -20,8 +20,15 @@ async function uploadFileAndDownloadCSV() {
         });
 
         // Save the response data to a CSV file
-        const outputFilePath = 'outputdem11212o.csv';
-        fs.writeFileSync(outputFilePath, response.data);
+        // const outputFilePath = 'outputdem11212o.csv';
+
+        const csvFileName = `calculation_${Date.now()}.csv`;
+
+        const outputFolderPath = path.join(__dirname, 'uploads');
+
+        const outputFilePath = path.join(outputFolderPath, csvFileName);
+
+        fs.writeFileSync(outputFilePath, response.data, 'utf8');
 
         console.log(`CSV response saved as ${outputFilePath}`);
     } catch (error) {
