@@ -574,7 +574,7 @@ video {
 }
 
 .mt-6 {
-  margin-top: 1.5rem;
+  margin-top: 3.5rem;
 }
 
 .mt-1 {
@@ -800,3 +800,15 @@ video {
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
 }
+
+
+/*-----------header css--start --------------*/
+header nav{
+  background: linear-gradient(90deg, rgb(239 41 90 / 13%) 2%, rgba(255, 255, 255, 1) 100%);
+}
+/*-----------header css--start --------------*/
+ul.grid-wrapper li{
+  background-color: #ef295a99;
+}
+
+
