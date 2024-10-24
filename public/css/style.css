@@ -806,9 +806,22 @@ video {
 header nav{
   background: linear-gradient(90deg, rgb(239 41 90 / 13%) 2%, rgba(255, 255, 255, 1) 100%);
 }
-/*-----------header css--start --------------*/
+/*-----------header css--end --------------*/
+
+
+/*-----------footer css--start --------------*/
+footer{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+/*-----------footer css--end --------------*/
 ul.grid-wrapper li{
   background-color: #ef295a99;
 }
+
+
+
 
 
