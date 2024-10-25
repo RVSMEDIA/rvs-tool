@@ -7,6 +7,8 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
 *,
 ::before,
 ::after {
@@ -574,7 +576,7 @@ video {
 }
 
 .mt-6 {
-  margin-top: 1.5rem;
+  margin-top: 3.5rem;
 }
 
 .mt-1 {
@@ -800,3 +802,84 @@ video {
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
 }
+
+/**=------------typography----------------*/
+.fw-18{
+  font-size: 18px;
+}
+.fw-600{
+  font-weight: 600;
+}
+/*-----------header css--start --------------*/
+header nav{
+  background-color: rgb(239 41 90 / 13%);
+}
+.navbar-expand-lg .navbar-collapse{
+  justify-content: flex-end;
+}
+/* .nav-link.h5{
+ 
+} */
+/*-----------header css--end --------------*/
+
+
+/*-----------footer css--start --------------*/
+footer{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+/*-----------footer css--end --------------*/
+
+
+/**---------------home css start --------------*/
+main{
+  margin: 7rem 0rem;
+}
+.container{
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0rem 1rem;
+}
+
+.grid-wrapper{
+  --auto-grid-min-size: 19rem;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+font-family: 'Montserrat', sans-serif;
+}
+
+ul.grid-wrapper li{
+  background-color: #ef295a99;
+  min-height: 250px;
+  padding: 0px 30px;
+  border: 1px solid #ef295a99 ;
+}
+ul.grid-wrapper li{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ul.grid-wrapper li{
+  font-size: 24px;
+  color: #ffffff;
+  text-transform: capitalize;
+  text-align: center;
+}
+ul.grid-wrapper li{
+  transition: ease-out 0.5s;
+}
+ul.grid-wrapper li:hover{
+  background-color: #fff;
+  color:  #ef295a99;
+  transition: ease-in 0.5s;
+}
+
+
+
+/**---------------home css end --------------*/
