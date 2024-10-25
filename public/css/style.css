@@ -866,12 +866,7 @@ video {
 
 
 /*-----------footer css--start --------------*/
-footer{
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
+
 /*-----------footer css--end --------------*/
 
 
@@ -881,6 +876,9 @@ footer{
 }
 .my-80{
   margin: 80px 0px;
+}
+.pd-lft-rgt{
+  padding: 0px 20px;
 }
 .container{
   margin: 0 auto;
@@ -963,7 +961,7 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .flip-card-front {
-  background-color: #ef295a99;
+  background-color: #ef295a;
   z-index: 2;
   display: flex;
   justify-content: center;
