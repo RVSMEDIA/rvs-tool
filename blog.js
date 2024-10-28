@@ -9,7 +9,13 @@ async function uploadFileAndDownloadCSV() {
         const form = new FormData();
         const filePath = path.join(__dirname, 'outputdemo.csv');  // Adjust the file path
 
+        console.log('filePath ', filePath);
+
+        console.log('fs.createReadStream(filePath) =', fs.createReadStream(filePath));
+
+
         form.append('file', fs.createReadStream(filePath));
+
 
         // Make the POST request with the file
         const response = await axios.post('http://139.59.56.29:8000/process_csv/', form, {

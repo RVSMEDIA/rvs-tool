@@ -186,32 +186,27 @@ app.get('/biometric-calculations', (req, res) => {
 app.post('/biometric-calculations', upload, async (req, res) => {
   try {
       const filePath = req.file.path;  // Get the uploaded file path
+      const originalName = req.file.originalname;  
+      console.log('Uploaded file path:', req);
 
-      // Create a form and append the file
-      const form = new FormData();
-      form.append('file', fs.createReadStream(filePath));
-
-      // Make the POST request to the FastAPI server
-      const response = await axios.post('http://139.59.56.29:8000/process_csv/', form, {
-          headers: {
-              ...form.getHeaders() // Set proper headers for multipart/form-data
-          },
-          responseType: 'arraybuffer' // Ensures binary data is returned for the CSV
-      });
+      // Call the function to process the file
+      const csvData = await processBiometricFile(filePath, originalName);
 
       // Save the CSV file to the 'uploads' folder
       const csvFileName = `calculation_${Date.now()}.csv`;
       const outputFolderPath = path.join(__dirname, 'uploads');
       const outputFilePath = path.join(outputFolderPath, csvFileName);
 
-      fs.writeFileSync(outputFilePath, response.data, 'utf8');
+      fs.writeFileSync(outputFilePath, csvData, 'utf8');
 
-      console.log(`CSV response saved as ${outputFilePath}`);
+      console.log(`CSV response saved as ${csvFileName}`);
 
       // Return the file name to the frontend
-      res.json({ fileName: csvFileName });
+      // res.json({ fileName: csvFileName });
+      res.status(200).render('biometric-calculations', { success: 'File uploaded and converted to CSV successfully!', downloadPath: `${csvFileName}` });
+
   } catch (error) {
-      console.error('Error during file upload or CSV download:', error.message);
+      console.error('Error during file processing:', error.message);
       res.status(500).send('Internal Server Error');
   }
 });
@@ -254,95 +249,49 @@ app.use((req, res, next) => {
 })
 
 
+async function processBiometricFile(filePath, originalName) {
+  try {
+      const form = new FormData();
+      // const fileName = path.basename(filePath);
 
-// friends router start==================================start=====================================================
+      console.log('Uploading file:', originalName);  // Use original name
+      
+      // console.log('Uploading file:', fileName);
+      
+      // Create a read stream for the uploaded file
+      const fileStream = fs.createReadStream(filePath);
 
 
-
-app.use('/friends', friendsRouter );
-app.use('/messages', messagesRouter );
-
-// friends router end==================================end=====================================================
-
-app.get('/', (req, res) => {
-    res.render('index', {
-        title: 'Express.js Matery',
-        caption: 'let\'s go',
+      form.append('file', fileStream, {
+        filename: originalName,  // Use original filename
+        contentType: 'text/csv', // Ensure the correct content type is set
     });
-});
+      
+      // // Append the file to the form
+      // form.append('file', fileStream, {
+      //     filename: fileName,
+      //     contentType: 'text/csv',  // Ensure the correct content type is set
+      // });
 
-app.get('/single', (req, res) => {
-    
-    res.render('single', {
-        title: 'Single Post',
-        currentRoute: '/single',
-    });
-});
+      const response = await axios.post('http://139.59.56.29:8000/process_csv/', form, {
+          headers: {
+              ...form.getHeaders(),  // Automatically sets the right headers
+          },
+          responseType: 'arraybuffer',  // Expect binary response
+      });
 
-
-app.get('/all', (req, res) => {
-    res.render('all', {
-        title: 'All Post',
-        caption: 'let\'s go',
-        currentRoute: '/all',
-
-    });
-});
-app.get('/all-links-only', (req, res) => {
-    res.render('all-links-only', {
-        title: 'All Links Only',
-        caption: 'let\'s go',
-        currentRoute: '/all',
-
-    });
-});
-
-
-
-
- app.post('/demo', function(req, res) {
-    const data = {
-      id: 1,
-      message: 'Hello from server!'
-    };
-    res.json(data);
-  });
-
-
-  async function uploadFileAndDownloadCSV() {
-    try {
-        // Create a form and append the file
-        const form = new FormData();
-        const filePath = path.join(__dirname, 'outputdemo.csv');  // Adjust the file path
-
-        form.append('file', fs.createReadStream(filePath));
-
-        // Make the POST request with the file
-        const response = await axios.post('http://139.59.56.29:8000/process_csv/', form, {
-            headers: {
-                ...form.getHeaders() // Set proper headers for multipart/form-data
-            },
-            responseType: 'arraybuffer' // Ensures binary data is returned for the CSV
-        });
-
-        // Save the response data to a CSV file
-        // const outputFilePath = 'outputdem11212o.csv';
-
-        const csvFileName = `calculation_${Date.now()}.csv`;
-
-        const outputFolderPath = path.join(__dirname, 'uploads');
-
-        const outputFilePath = path.join(outputFolderPath, csvFileName);
-
-        fs.writeFileSync(outputFilePath, response.data, 'utf8');
-
-        console.log(`CSV response saved as ${outputFilePath}`);
-    } catch (error) {
-        console.error('Error during file upload or CSV download:', error.message);
-    }
+      return response.data;  // Return the CSV data for further processing
+  } catch (error) {
+      if (error.response) {
+          const errorMessage = Buffer.from(error.response.data).toString('utf-8');
+          console.error('Error response:', errorMessage);
+          console.error('Error response status:', error.response.status);
+      } else {
+          console.error('Error message:', error.message);
+      }
+      throw error;  // Re-throw error for further handling
+  }
 }
-
-
 
 app.listen(PORT, () => {
     console.log(`Listing on  app ${PORT} .....`);
