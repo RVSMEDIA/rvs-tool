@@ -101,7 +101,6 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
-  overflow: hidden;
 }
 
 /*
@@ -261,17 +260,17 @@ select {
 2. Remove default button styles.
 */
 
-button,
+/* button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button;
-  /* 1 */
+   1 
   background-color: transparent;
-  /* 2 */
+   2 
   background-image: none;
-  /* 2 */
-}
+   2 
+} */
 
 /*
 Use the modern Firefox focus style for all focusable elements.
@@ -738,9 +737,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.text-center {
-  text-align: center;
-}
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -912,23 +908,25 @@ font-family: 'Montserrat', sans-serif;
   align-items:flex-end;
 }
 .grid-wrapper .grid-wrapper-list{
+  background-color:  #ef295a;
   font-size: 24px;
   color: #ffffff;
   text-transform: capitalize;
   text-align: center;
+  border: 1px solid #ef295a ;
 }
 .grid-wrapper .grid-wrapper-list {
   transition: ease-out 0.5s;
 }
-/* .grid-wrapper .grid-wrapper-list:hover{
+.grid-wrapper .grid-wrapper-list:hover{
   background-color: #fff;
-  color:  #ef295a99;
+  color:  #ef295a;
   transition: ease-in 0.5s;
-} */
+}
 
 
 /*_-----------------flip-card --------css start-----*/
-.flip-card {
+/* .flip-card {
   background-color: transparent;
   perspective: 1000px;
 }
@@ -952,7 +950,7 @@ font-family: 'Montserrat', sans-serif;
 .flip-card:focus .flip-card-inner{
   transform: rotateY(180deg);
 }
-
+/*
 .flip-card-front,
 .flip-card-back {
   position: absolute;
@@ -975,7 +973,23 @@ font-family: 'Montserrat', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 /*_-----------------flip-card --------css end-----*/
 
+.btn-border-radius{
+  border-radius: 32px;
+}
+.btn.text-white:hover{
+  background-color: transparent;
+  color:#373b3e !important;
+}
+
 /**---------------home css end --------------*/
+
+
+/*---------media  queries----------*/
+@media screen and (max-width: 1024px){
+.grid-wrapper .grid-wrapper-list{
+  min-height: 180px;
+}
+}
