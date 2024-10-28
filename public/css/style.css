@@ -9,6 +9,49 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 
+@font-face {
+  font-family: 'PlusJakarta-Medium';
+  src: url('../font/PlusJakarta-Medium.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Big-Caslon-Medium';
+  src: url('../font/Big-Caslon-Medium.ttf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Tobias-Thin';
+  src: url('../font/Tobias-Thin.woff') format('woff');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Tobias-Thin2';
+  src: url('../font/Tobias-Thin.woff2');
+  font-weight: normal;
+}
+@font-face {
+  font-family: "PlusJakarta-Regular";
+  src: url("../font/PlusJakartaSans-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "PlusJakarta-Light";
+  src: url("../font/PlusJakartaSans-Light.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "PlusJakarta-SemiBold";
+  src: url("../font/PlusJakartaSans-Semibold.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "PlusJakarta-Medium";
+  src: url("../font/PlusJakartaSans-Medium.ttf");
+  font-weight: normal;
+}
+
 *,
 ::before,
 ::after {
@@ -58,7 +101,6 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
-  overflow: hidden;
 }
 
 /*
@@ -97,6 +139,7 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
+  font-family: "Tobias-Thin";
 }
 
 /*
@@ -217,17 +260,17 @@ select {
 2. Remove default button styles.
 */
 
-button,
+/* button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button;
-  /* 1 */
+   1 
   background-color: transparent;
-  /* 2 */
+   2 
   background-image: none;
-  /* 2 */
-}
+   2 
+} */
 
 /*
 Use the modern Firefox focus style for all focusable elements.
@@ -694,9 +737,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.text-center {
-  text-align: center;
-}
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -811,9 +851,7 @@ video {
   font-weight: 600;
 }
 /*-----------header css--start --------------*/
-header nav{
-  background-color: rgb(239 41 90 / 13%);
-}
+
 .navbar-expand-lg .navbar-collapse{
   justify-content: flex-end;
 }
@@ -824,25 +862,30 @@ header nav{
 
 
 /*-----------footer css--start --------------*/
-footer{
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
+
 /*-----------footer css--end --------------*/
 
 
 /**---------------home css start --------------*/
-main{
-  margin: 7rem 0rem;
+.fw-3{
+  font-size: 3.25rem;
+}
+.my-80{
+  margin: 80px 0px;
+}
+.pd-lft-rgt{
+  padding: 0px 20px;
 }
 .container{
   margin: 0 auto;
   max-width: 1280px;
   padding: 0rem 1rem;
 }
-
+.banner{
+  background-color: #1a212a;
+  min-height: 400px;
+  padding: 80px 0px;
+}
 .grid-wrapper{
   --auto-grid-min-size: 19rem;
   display: grid;
@@ -853,33 +896,100 @@ main{
   box-sizing: border-box;
 font-family: 'Montserrat', sans-serif;
 }
-
-ul.grid-wrapper li{
-  background-color: #ef295a99;
+.grid-wrapper .grid-wrapper-list {
   min-height: 250px;
-  padding: 0px 30px;
-  border: 1px solid #ef295a99 ;
 }
-ul.grid-wrapper li{
+.banner, .grid-wrapper .grid-wrapper-list{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-ul.grid-wrapper li{
+.banner{
+  align-items:flex-end;
+}
+.grid-wrapper .grid-wrapper-list{
+  background-color:  #ef295a;
   font-size: 24px;
   color: #ffffff;
   text-transform: capitalize;
   text-align: center;
+  border: 1px solid #ef295a ;
 }
-ul.grid-wrapper li{
+.grid-wrapper .grid-wrapper-list {
   transition: ease-out 0.5s;
 }
-ul.grid-wrapper li:hover{
+.grid-wrapper .grid-wrapper-list:hover{
   background-color: #fff;
-  color:  #ef295a99;
+  color:  #ef295a;
   transition: ease-in 0.5s;
 }
 
 
+/*_-----------------flip-card --------css start-----*/
+/* .flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+.flip-card:focus {
+    outline: 0;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card:focus .flip-card-inner{
+  transform: rotateY(180deg);
+}
+/*
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-card-front {
+  background-color: #ef295a;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-back {
+  background-color: #ef295a99;
+  transform: rotateY(180deg);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+/*_-----------------flip-card --------css end-----*/
+
+.btn-border-radius{
+  border-radius: 32px;
+}
+.btn.text-white:hover{
+  background-color: transparent;
+  color:#373b3e !important;
+}
 
 /**---------------home css end --------------*/
+
+
+/*---------media  queries----------*/
+@media screen and (max-width: 1024px){
+.grid-wrapper .grid-wrapper-list{
+  min-height: 180px;
+}
+}

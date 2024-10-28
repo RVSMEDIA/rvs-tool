@@ -50,9 +50,9 @@
   </style>  
 
 <main>
-    <section id="biometric-calculations">
+    <section id="biometric-calculations" class="my-80">
       <div class="container">
-        <div style="background-color: #e9ecef;">
+        <div>
           <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="main-container2">
@@ -60,21 +60,21 @@
 
                    <form method="post" action="/xls-to-csv"  enctype="multipart/form-data" id="form">
                         <div
-                        class="max-w-xl m-auto h-screen flex flex-col align-center justify-center"
+                        class="max-w-xl m-auto flex flex-col align-center justify-center"
                         >
 
                         {{#if success}}
-                              <p style="color: green;">{{success}}</p>
+                              <p class="text-success text-center">{{success}}</p>
                               {{!-- <a href="/download/{{downloadPath}}">Download CSV File</a> --}}
 
                               <a 
                               href="/download/{{downloadPath}}"
-                              class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                              class="btn w-10 m-auto fw-18 rounded-md btn-border-radius btn-dark text-white"
                               >Download CSV File</a>
 
                         {{else}}
 
-                        <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
+                        <div class="flex flex-col w-full items-center justify-center bg-grey-lighter text-danger">
                             <div id="drop-area">
 
                             <label
@@ -117,11 +117,11 @@
 
                         
                         <!-- Button -->
-                            <div class="mt-6">
+                            <div class="mt-5 mt-4 text-center">
                             <button
                                 id="gen_btn"
                                 type="submit"
-                                class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                class="btn w-10 m-auto fw-18 rounded-md btn-border-radius btn-dark text-white "
                             >
                                 Generate
                             </button>
@@ -130,7 +130,7 @@
                             href="/home"
                             style="display:none;"
                             id="refresh"
-                            class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            class="btn w-10 m-auto fw-18 rounded-md btn-border-radius btn-dark text-white "
                             >Refresh</Button>
 
                             </div>

@@ -49,13 +49,14 @@
     }
   </style>  
 
-<main>
-    <section id="biometric-calculations">
+
+    <section id="biometric-calculations" class="my-80">
       <div class="container">
-        <div style="background-color: #e9ecef;">
+        <div>
           <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="main-container2">
+
                    <form method="post" action="/biometric-calculations"  enctype="multipart/form-data" id="form">
                         <div
                         class="max-w-xl m-auto h-screen flex flex-col align-center justify-center"
@@ -76,10 +77,9 @@
 
                         <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
                             <div id="drop-area">
-
-                            <label
-                                class="w-64 flex flex-col items-center px-4 py-7 bg-white text-gray-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:text-teal-800"
-                            >
+                              <label
+                                  class="w-64 flex flex-col items-center px-4 py-7 bg-white text-gray-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:text-teal-800"
+                              >
                                 <img src="assets/csv-file-icon.svg" width="32" />
                                 <span class="mt-2 leading-normal">Select an csv</span> 
                                 <input type="file" id="csv" name="csv" accept=".csv" class="hidden">
@@ -117,11 +117,11 @@
 
                         
                         <!-- Button -->
-                            <div class="mt-6">
+                            <div class="mt-5 mt-4 text-center">
                             <button
                                 id="gen_btn"
                                 type="submit"
-                                class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                class="btn w-10 m-auto fw-18 rounded-md btn-border-radius btn-dark text-white "
                             >
                                 Generate
                             </button>
@@ -130,7 +130,7 @@
                             href="/home"
                             style="display:none;"
                             id="refresh"
-                            class="w-10 m-auto flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            class="btn w-10 m-auto fw-18 rounded-md btn-border-radius btn-dark text-white "
                             >Refresh</Button>
 
                             </div>
@@ -152,7 +152,7 @@
         </div>
       </div>
     </section>
-  </main>
+  
 
 
   <script>
