@@ -27,3 +27,17 @@
     </div>
   </section>
 </footer>
+
+
+<script>
+    // Fixed Header
+  jQuery(window).scroll(function () {
+    if (jQuery(this).scrollTop() > 1) {
+      jQuery("header nav").addClass("sticky-header");
+      jQuery("body").addClass("sticky-header-main");
+    } else {
+      jQuery("header nav").removeClass("sticky-header");
+      jQuery("body").removeClass("sticky-header-main");
+    }
+  });
+</script>
