@@ -851,10 +851,53 @@ video {
   font-weight: 600;
 }
 /*-----------header css--start --------------*/
+.navbar-brand{
+  display: flex;
+}
+.navbar-brand .header-logo {
+  width: 45px;
+}
+.navbar-brand .logo-desc svg path{
+  fill: #fff;
+}
+nav.sticky-header .navbar-brand .logo-desc svg path{
+  fill: #000;
+}
+.sticky-header a.text-white{
+color: #000 !important;
+}
+body header nav{
+  animation-duration: 0.9s;
+  animation-fill-mode: both;
+  transition: all 0.3s ease;
+}
+body header.sticky-header{
+  background: linear-gradient(90deg, rgba(239, 41, 90, 0.6755077030812324) 0%, rgba(255, 255, 255, 1) 34%);
+}
+.sticky-header {
+  background-color: #fff;
+  animation-name: fadeInDown;
+  padding: 10px 0px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 .navbar-expand-lg .navbar-collapse{
   justify-content: flex-end;
 }
+
 /* .nav-link.h5{
  
 } */
@@ -1007,6 +1050,9 @@ font-family: 'Montserrat', sans-serif;
   100% { background-position-x: -100%; }
 }
 
+#loading{
+  display: none;
+}
 
 /*---------media  queries----------*/
 @media screen and (max-width: 1024px){
